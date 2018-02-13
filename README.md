@@ -1,3 +1,5 @@
 # Coin Workshop
 
-Please install the [prerequisites](PREREQUISITES.md)
+Checkout out the [presentation](presentation/#p1) first.
+
+Then install the [prerequisites](PREREQUISITES.md)
