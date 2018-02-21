@@ -1,1 +1,5 @@
+# Solc
 contracts.json
+
+# py.test
+.pytest_cache/

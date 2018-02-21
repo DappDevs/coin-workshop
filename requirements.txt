@@ -1,0 +1,5 @@
+# Temporary
+eth-utils>=1.0.0b1,<1.0.0b2
+eth-tester>=0.1.0b18
+web3>=4.0.0b9
+pytest
