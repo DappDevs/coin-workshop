@@ -2,6 +2,9 @@ pragma solidity ^0.4.19;
 
 interface ICO
 {
+    /* ICO event: register this ICO in connection with Token watcher */
+    event RegisterICO(address token);
+    
     /* owner: who owns this ICO? */
     function owner() public constant returns (address);
 

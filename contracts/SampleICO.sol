@@ -22,6 +22,7 @@ contract SampleICO is ICO
         // Sets state variable 'token'
         // (which is an external contract interface)
         token = ERC20Token(token_address);
+        RegisterICO(token_address); // Register with Token ICO watcher
     }
     function tokenPrice()
         public
