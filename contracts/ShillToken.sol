@@ -11,12 +11,13 @@ contract ShillToken is ERC20Token
     mapping(address => uint256) balances;
     uint256 totalSupply_;
 
-    function ShillToken(uint8 numParticipants) public
+    address public minter;
+
+    function ShillToken() public
     {
-        require(decimals <= 74); // Protect against overflow
-        require(numParticipants > 0); // Can't have 0 participants
-        totalSupply_ = numParticipants * 10**uint256(decimals); // uint256 MAX is 255 * 4.540866245×10⁷⁴
-        balances[msg.sender] = totalSupply_; // Presenter gets all the tokens at first
+        totalSupply_ = 0;
+
+        minter = msg.sender;
     }
     
 	/*
@@ -98,4 +99,17 @@ contract ShillToken is ERC20Token
 	function allowance(address _owner, address _spender) public view returns (uint256) {
 		return allowed[_owner][_spender];
 	}
+
+	/**
+	 * @dev Function that allows the minter to mint more tokens
+	 * @param _to address The address which receives the newly minted funds
+	 * @param _amount uint256 The amount of tokens to mint
+	 */
+    function mint(address _to, uint256 _amount) public {
+        require(minter != 0x0);
+        require(totalSupply_ + _amount > totalSupply_);
+        totalSupply_ += _amount; // Won't overflow because we checked above
+		balances[_to] += _amount; // Won't overflow because balances <= totalSupply_
+        Transfer(0x0, _to, _amount);
+    }
 }
