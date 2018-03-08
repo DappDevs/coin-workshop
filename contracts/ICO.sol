@@ -4,9 +4,6 @@ interface ICO
 {
     /* ICO event: register this ICO in connection with Token watcher */
     event RegisterICO(address token);
-    
-    /* owner: who owns this ICO? */
-    function owner() public constant returns (address);
 
     /* TokenBuy event: tell buyer how many tokens they got, and what the change (refund) was */
     event TokenBuy(address account, uint256 tokensBought, uint256 refund);
