@@ -2,7 +2,7 @@ pragma solidity ^0.4.19;
 
 import "./ERC20Token.sol";
 
-contract ShillCoin is ERC20Token
+contract ShillToken is ERC20Token
 {
     string public name = "DappDevs Shill-a-Coin Workshop token";
     string public symbol = "SHILL";
@@ -11,7 +11,7 @@ contract ShillCoin is ERC20Token
     mapping(address => uint256) balances;
     uint256 totalSupply_;
 
-    function ShillCoin(uint8 numParticipants) public
+    function ShillToken(uint8 numParticipants) public
     {
         require(decimals <= 74); // Protect against overflow
         require(numParticipants > 0); // Can't have 0 participants
