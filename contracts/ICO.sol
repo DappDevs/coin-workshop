@@ -10,6 +10,9 @@ interface ICO
 
     /* TokenSell event: tell the seller how many tokens they returned and what their refund was */
     event TokenSell(address account, uint256 tokensReturned, uint256 refund);
+
+    /* Who owns this contract */
+    function owner() public constant returns (address);
     
     /* tokenPrice: price, in wei (10^-18 ether), of a Token */
     function tokenPrice() public constant returns (uint256 weiPerToken);

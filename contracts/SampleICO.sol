@@ -11,9 +11,15 @@ contract SampleICO is ICO
     /* Token Contract pointer */
     ERC20Token token;
 
+    /* ICO Owner */
+    address _owner;
+
     function SampleICO(address token_address)
         public
     {
+        // Whoever created this has extra superpowers!
+        _owner = msg.sender;
+
         // Sets state variable 'token'
         // (which is an external contract interface)
         token = ERC20Token(token_address);
@@ -69,4 +75,25 @@ contract SampleICO is ICO
         // Log the event so they know what happened
         TokenSell(msg.sender, amount, refund);
     }
+
+    // Get owner
+    function owner() public constant returns (address) { return _owner; }
+
+    // Enforce access control to owner only
+    modifier onlyOwner()
+    {
+        require(msg.sender == owner());
+        _; // This means "...then do everything else"
+    }
+
+    // Owner can get all of the tokens stored here at any time
+    function getTokens()
+        public
+        onlyOwner
+    {
+        assert(token.transfer(_owner, token.balanceOf(this)));
+    }
+
+    // Owner can put more money in
+    function () public payable onlyOwner { }
 }
