@@ -2,33 +2,41 @@ import pytest
 
 PARTICIPANTS=10
 @pytest.fixture
-def token(Contract):
-    return Contract('contracts/ShillCoin.sol:ShillCoin').deploy(PARTICIPANTS)
+def Token(tester):
+    return tester.contracts('contracts/ShillToken.sol').deploy(PARTICIPANTS)
 
-def test_token(a, token):
+def test_token(tester, Token):
     # Deployer address has all the tokens, and there is 1 token for each participant
-    assert token.balanceOf(a[0]) == token.totalSupply() == PARTICIPANTS*token.decimals()
+    assert Token.balanceOf(tester.accounts[0]) == \
+            Token.totalSupply() == \
+            PARTICIPANTS*10**Token.decimals()
 
 @pytest.fixture
-def ico(Contract, token):
-    return Contract('contracts/SampleICO.sol:SampleICO').deploy(token.address)
+def ICO(tester, Token):
+    return tester.contracts('contracts/SampleICO.sol').deploy(Token.address)
 
-def test_ico(a, logs, token, ico):
+def test_ico(tester, Token, ICO):
     # Test registration
-    assert logs('RegisterICO')[-1]['token'] == token.address
+    assert ICO.all_logs[-1]['token'] == Token.address
+
     # Deployer has all the tokens
-    amount = token.totalSupply()
-    assert token.balanceOf(a[0]) == amount
-    # Give all the tokens to the ICO
-    token.transfer(ico.address, amount)
-    assert token.balanceOf(a[0]) == 0
-    # Buy all the tokens
-    price = ico.tokenPrice()
-    starting_balance = a[0].balance
-    ico.buyTokens(transact={'value': amount * price})
-    assert token.balanceOf(a[0]) == amount
-    assert a[0].balance <= starting_balance - amount * price
+    assert Token.balanceOf(tester.accounts[0]) == Token.totalSupply()
+    
+    # Allow the ICO to move tokens on your behalf
+    Token.approve(ICO.address, Token.totalSupply())
+    assert Token.allowance(tester.accounts[0], ICO.address) == Token.totalSupply()
+    
+    # Buy alloted tokens
+    amount = Token.totalSupply() // PARTICIPANTS
+    price = ICO.tokenPrice()
+    starting_balance = tester.accounts[1].balance
+    # Even if we send way more than what we can purchase, we get that much
+    ICO.buyTokens(transact={'from': tester.accounts[1], 'value': 10 * amount * price})
+    assert Token.balanceOf(tester.accounts[1]) == amount
+    assert tester.accounts[1].balance <= starting_balance - amount * price
+    
     # Sell all the tokens and get your Ether back
-    ico.sellTokens(amount)
-    assert token.balanceOf(a[0]) == 0
-    assert a[0].balance > starting_balance - amount * price
+    Token.approve(ICO.address, amount, transact={'from': tester.accounts[1]})
+    ICO.sellTokens(amount, transact={'from': tester.accounts[1]})
+    assert Token.balanceOf(tester.accounts[1]) == 0
+    assert tester.accounts[1].balance > starting_balance - amount * price
