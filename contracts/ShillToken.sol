@@ -1,6 +1,6 @@
 pragma solidity ^0.4.19;
 
-import "./ERC20Token.sol";
+import "./SampleICO.sol";
 
 contract ShillToken is ERC20Token
 {
