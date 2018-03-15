@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.18;
 
 // ERC Token Standard #20 Interface
 // https://github.com/ethereum/EIPs/issues/20
