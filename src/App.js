@@ -12,7 +12,6 @@ class App extends Component {
     this.state = {
       user: null,
       web3: null,
-      contracts: null,
       tokenInstance: null,
       icoFactory: null,
       icoInstances: [],
@@ -28,9 +27,7 @@ class App extends Component {
         web3: results.web3,
         user: results.web3.eth.coinbase
       })
-      .then(
-        this.loadContractAssets()
-      )
+      this.loadContractAssets()
     })
     .catch(() => {
       console.log('Error finding web3.')
@@ -38,7 +35,10 @@ class App extends Component {
   }
 
   loadContractAssets() {
-    console.log(assetsFile.contracts)
+    for (var file in assetsFile.contracts) {
+      var contract = file.split(":")[1]
+      console.log(contract, assetsFile.contracts[file].abi)
+    }
   }
 
   render() {
