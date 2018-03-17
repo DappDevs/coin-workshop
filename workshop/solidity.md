@@ -1,12 +1,34 @@
+background-image: url(https://i.ytimg.com/vi/ELWSKMcJfI8/maxresdefault.jpg)
+class: center, magenta
+
+<br/>
+# Smart Contracts with Solidity
+
+---
+
 # Smart contracts
 
+.left-column.width-33[
 Smart contracts are...
 * compiled bytecode for the EVM
 * able to accept calls
-* contains access rules and controls logic
+* contains access rules and logic
 
-There are a few smart contract langauges,
-but Solidity is the most widely used
+Smart contract langauges:
+* Solidity
+* Vyper
+* Bambooo
+* others...
+
+Solidity is the most widely used
+]
+
+
+.right-column.width-66[
+
+![solidity](https://i.ytimg.com/vi/nnVX6fQUu4o/maxresdefault.jpg)
+
+]
 
 ???
 
@@ -33,6 +55,7 @@ but Solidity is by far and away the most widely used
 
 ---
 
+.left-column.width-33[
 # Solidity
 
 * JavaScript-like syntax, but...
@@ -47,7 +70,10 @@ but Solidity is by far and away the most widely used
     * gas attacks
     * re-entrancy
     * opaque logic
-
+]
+.right-column.width-66[
+![Solidity code](https://blockonomi-9fcd.kxcdn.com/wp-content/uploads/2018/01/solidity-code.jpg)
+]
 ???
 
 +++
@@ -80,25 +106,44 @@ when SpaceX is launching a satellite into orbit.
 
 # Contracts in Solidity
 
+.left-column.width-50[
 Basic contract:
-```solidity
+* State Variables
+* Methods
+
+*Don't forget the pragma!*
+]
+
+.right-column.width-50[
+```javascript
 pragma solidity ^0.4.19; // won't compile without this
+
 contract A {
+  
   uint stateVariable; // Stored in contract's state on-chain
 
   function someMethod(uint argA, bool argB) public {
+    
     require(argA > 0); // Check incoming arguments
+    
     if (argB) { // Logic statements
+      
       stateVariable = argA; // Assignment of state variable
+    
     } else {
+      
       stateVariable -= 1; // Decrement state variable
+    
     }
+    
     assert(stateVariable > 0); // Post-execution checks
     // NOTE: If assert fails, transaction reverts stateVariable
+  
   }
+
 }
 ```
-
+]
 ???
 
 +++

@@ -1,10 +1,37 @@
+background-image: url(https://media.giphy.com/media/ilMRzDNuT1sty/giphy.gif)
+class: middle, center, white
+
+# MONEY!!!
+
+## or, how I learned to stop worrying and love the Token
+
+???
+
+Who wants to talk about money??
+
+---
+
 # Money is a Technology
 
-* Probably almost as old as fire
+.left-column.width-66[
+
+A really powerful one:
+* Probably as old as fire
 * Facilitates trade
 * Integral to our daily experience
-* Really easy to counterfeit
-    * That's why governments exist
+* Allows us to operate outside of small communities
+* Really attractive to counterfeit
+
+*That's why governments control it*
+
+]
+
+.right-column.width-33[
+
+![money is tech](http://www.creditwiping.com/buynow/imag050.GIF)
+*Here's a really terrible gif*
+
+]
 
 ???
 
@@ -21,18 +48,40 @@ weird, made-up coin. Since everything had a price, and the prices were all
 in the same system, this made it really easy to conduct trade with people
 in a community.
 
-Not too long after that, someone probably decided it was easy to counterfeit
-and made their own look-a-like coins and tried to pass them off to their
-neighbors as genuine tokens.
+Not too long after that, someone decided to make their own look-a-like coins
+and tried to pass them off to their neighbors as genuine tokens.
+People are always gaming the system. It's an arms race!
 
 ---
 
 # Bitcoin is Money
 
-*What is Money?*
+.left-column.width-66[
+
+*Magic Internet Money!*
+
+But, what is Money?
 * Unit of Account (anyone can get a Bitcoin address)
 * Store of Value (Well, *some* value. It fluctuates)
 * Medium of exchange (You have to pay a fee, but...)
+
+Most importantly... it's super easy to make my own Bitcoin!
+
+... but that doesn't mean anyone cares!
+
+]
+
+
+.right-column.width-33.center.middle[
+
+![Bitcoin](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTW14ho7FIGJQQnFJGDnvc4tqIXIy_WUQPqqbitaianU6v2yRJMkg)
+
+*Wait, there's phyisical Bitcoins?*
+
+*I thought you said it was digital?*
+
+
+]
 
 ???
 
@@ -56,6 +105,8 @@ attacks, denial of service, and counterfeiting.
 
 # Ethereum is *not* Money
 
+.left-column.width-66[
+
 Ethereum is a platform that allows you to create your own money!
 
 ...as well as other valuable digital agreements:
@@ -64,7 +115,15 @@ Ethereum is a platform that allows you to create your own money!
 * Dapps (May use Tokens for operation)
 * DAOs (May use Tokens to enable governance)
 
-It has a native coin called *ether*, pay to execute transactions
+It has a native coin called *ether*, used to execute transactions
+]
+
+.right-column.width-33[
+
+![Ethereum](http://www.xbt.money/wp-content/uploads/2016/07/Ethereum-Code-640x480-640x330.jpeg)
+*oooooo, code....*
+
+]
 
 ???
 
@@ -85,9 +144,11 @@ for transactions fees.
 
 ---
 
-# Ethereum enables money
+# Ethereum *prints* Money
 
-Anyone can make a token... who cares!
+.left-column.width-50[
+
+Anyone can make a token... but, who cares?!
 
 It's all about use cases
 * Utility tokens
@@ -101,6 +162,14 @@ It's all about use cases
 * Collectibles
     * Digital collectibles
     * Phyiscal collectibles (certificates)
+
+]
+
+.left-column.width-50[
+
+![Prints Money](http://stockemperor.com/wp-content/uploads/2018/01/tether-printing.jpg)
+
+]
 
 ???
 
@@ -125,6 +194,7 @@ to own their own provably rare digital kitten, who's to say what the value of th
 
 # Sign me up!
 
+.left-column.width-66[
 There's no secret to magic internet money...
 
 It still requires:
@@ -137,6 +207,12 @@ It still requires:
 * ...and a little bit of luck!
 
 But first and foremost, you have to `#BUIDL` the thing!
+]
+
+.right-column.width-33[
+![BUIDL](https://secure.meetupstatic.com/photos/event/d/2/b/d/600_468893949.jpeg)
+*Obligatory tagline*
+]
 
 ???
 
@@ -165,13 +241,24 @@ I mean, it's worth something, but it failed to deliver on it's promises to chang
 
 ---
 
-# `#BUIDL` the thing
+# #BUIDL the thing
+
+.left-column.width-66[
 
 * Learn about Smart Contracts (today)
 * Learn about Web3 and dapp development
 * Learn about Crypto-economics
 * Learn about DAOs and Governance
 * ...and many more!
+
+Literally so many things to learn!
+
+]
+
+.right-column.width-33[
+![Builders](https://img.scoop.it/ok3SjYhj3S8vLPRnVeGtyTl72eJkfbmt4t8yenImKBVvK0kTmF0xjctABnaLJIm9)
+*Look at these BUIDLrs go!*
+]
 
 ???
 
