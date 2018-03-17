@@ -4,6 +4,11 @@ class: center, magenta
 <br/>
 # Smart Contracts with Solidity
 
+???
+
+Let's take a journey through the wonderful, weird world of
+Smart Contract programming in Solidity, shall we?
+
 ---
 
 # Smart contracts
@@ -109,7 +114,11 @@ when SpaceX is launching a satellite into orbit.
 .left-column.width-50[
 Basic contract:
 * State Variables
+    * Can have visibility
+    * `public` adds "getter"
 * Methods
+    * Must have visibility
+    * Can return and/or take inputs
 
 *Don't forget the pragma!*
 ]
@@ -120,7 +129,7 @@ pragma solidity ^0.4.19; // won't compile without this
 
 contract A {
   
-  uint stateVariable; // Stored in contract's state on-chain
+  uint public stateVariable; // Stored in contract's state on-chain
 
   function someMethod(uint argA, bool argB) public {
     
@@ -177,19 +186,40 @@ compiler you're using. Here it says you need version 0.4.19 or greater
 
 # Inheritance in Solidity
 
-B inherits from A:
+.left-column.width-50[
+B inherits from A, this means:
+* B has all of A's state variables
+* B has all of A's methods
+* B can mutate anything in A (but don't...)
+
+This is a compiler convienence...
+
+A never gets' deployed with B
+]
+
+.right-column.width-50[
 ```solidity
 pragma solidity ^0.4.19;
 
 import "A.sol"; // Imports contract A
 
 contract B is A {
+  
   // B now has `stateVariable`
-  function anotherMethod(uint arg) public {
+  function anotherMethod() public {
+    
+    // Preferred way to access superclass variables
+    // since it shows that it is inherited
+    uint arg = super.stateVariable + 10;
+    // p.s. this is how you do a local variable
+
+    // Call superclass method
     super.someMethod(arg, true);
+  
   }
 }
 ```
+]
 
 ???
 
@@ -219,22 +249,39 @@ in your codebase.
 
 # Multiple inheritance
 
-Solidity uses 
-```
+.left-column.width-50[
+Solidity allows multiple inheritance
+
+C3 linearization for inheritance tree
+
+Multiple inheritance can make things complicated
+
+If it's too complicated, it will not compile
+
+Basically, don't make it too complicated
+]
+
+.right-column.width-50[
+```javascript
 pragma solidity ^0.4.19;
 
 /* We can load specific contracts from files */
 import A from "A.sol";
 import B from "B.sol"; // Doesn't load contract A
 
-contract C is A
-contract D is B
+contract C is A // C has all of A's stuff
+
+contract D is B // D has all of B's stuff
+
 // resolves according to C3 superclass linearization rules
-contract E is A, B, C, D
+contract E is A, B, C, D // E has all of A, B, C, and D's stuff
+// that's a lot of stuff!
+
 // `contract E is D, C, B, A` would fail to compile
 
 // p.s. you can do multiple contracts in one .sol file
 ```
+]
 
 ???
 
@@ -261,7 +308,8 @@ you may have from different imports.
 
 ---
 
-# Constructors
+# Constructors & Environment Variables
+.left-column.width-66[
 
 ```solidity
 contract hasConstructor {
@@ -284,6 +332,7 @@ Commonly used Ethereum environment variables:
     * Can be manipulated by miners to a certain degree
 * `block.number` - current block number txn is in
 * Many others, not listed due to subtle considerations
+]
 
 ???
 
@@ -309,14 +358,7 @@ what you want to track. There are other environment variables you may wish to us
 
 # Ethereum Addresses
 
-Addresses have special methods and parameters
-
-* `<address>.balance (uint256)`
-    * balance of the Address in Wei
-* `<address>.transfer(uint256 amount)`
-    * send given amount of Wei to Address, throws on failure
-* Others... again not listed due to subtle considerations
-
+.left-column.width-66[
 ```solidity
 contract Charity {
   // Adding `public` to a state variable adds a "getter"
@@ -344,6 +386,17 @@ contract Charity {
   }
 }
 ```
+]
+
+.right-column.width-33[
+Addresses have special methods and parameters
+
+* `<address>.balance (uint256)`
+    * balance of the Address in Wei
+* `<address>.transfer(uint256 amount)`
+    * send given amount of Wei to Address, throws on failure
+* Others... again not listed due to subtle considerations
+]
 
 ???
 
@@ -372,7 +425,7 @@ This usually is used in the context of figuring out the contract's balance of et
 ---
 
 # Types
-
+.left-column.width-50[
 Types in solidity:
 * Addresses
     * Just talked about it
@@ -382,15 +435,62 @@ Types in solidity:
     * etc...
 * Arrays
     * has a `<array>.length` member
+* Structs
+    * Like C structs
 * Mappings
     * Hashtable / Python `dict`
 * Strings
     * Basically an array of bytes
+]
 
+.right-column.width-50[
+```solidity
+address someone;
+
+// Integers
+uint aNumber;
+uint256 sameAsAbove;
+int256 signed256bitInteger;
+uint128 thingA;
+int128 thingB;
+uint64 yesWeCanGoSmaller;
+uint32 andSmaller;
+uint16 andSmallerStill;
+uint8 smallestInt;
+
+uint[] arrayOfInts;
+assert arrayOfInts.length == 0;
+arrayOfInts.push(1); // length is now 1
+
+struct MyStruct {
+  uint number;
+  address addr;
+}
+
+mapping (address => MyStruct) mapsAddressToStruct;
+
+str thisIsAString;
+```
+]
 ---
 
 # Modifiers
+.left-column.width-50[
+Built-in modifiers
+* `constant`/`view` - no state changes
+* `pure` - no state accesses either
+* `payable` - must have `msg.value` > 0
+* `public` - any account can call method
+* `private` - only contract can call method
+* `external` - contract cannot call method
+* `internal` - method is copied directly into contract
 
+Some of these end up in the ABI
+
+(ABI tells front end what it can do)
+]
+.right-column.width-50[
+Custom modifiers:
 ```solidity
 contract Owned {
   address public owner;
@@ -406,28 +506,47 @@ contract Owned {
   }
 }
 ```
-
-Built-in modifiers
-* `constant`/`view` - no state changes
-* `pure` - no state accesses either
-* `payable` - must have `msg.value` > 0
-* `public` - any account can call method
-* `private` - only contract can call method
-* `external` - contract cannot call method
-* `internal` - method is copied directly into contract
+Great way to confuse someone!
+]
 
 ---
 
 # Returning and Events
 
+.left-column.width-50[
+
 Solidity methods can return values
+
 ```solidity
 function myMethod() view public returns (uint) {
   return block.number;
 }
+
+// Multiple returns through tuples
+function otherMethod() view public returns (uint, bool) {
+  return block.number, block.number > 1000;
+}
+
+struct Friend {
+  address friend;
+  uint friendMeter;
+}
+Friend[] myFriends;
+
+// Return structs
+function getFriend(uint8 friendID)
+    view public returns (Friend) {
+  return myFriends[friendID];
+}
+
 ```
+
 *Note*: transactions don't return values in Web3, they return txn hash.
 *Best Practice*: Only non-state changing functions should return
+
+]
+
+.right-column.width-50[
 
 Events are special logs stored in the Ethereum blockchain
 
@@ -435,41 +554,105 @@ Events are special logs stored in the Ethereum blockchain
 * Great for async state feedback
 * Stored in ABI for Web3 use
 
+```solidity
+event MyEvent(
+  address indexed topic1, 
+  uint indexed topic2, 
+  str otherData
+);
+
+function stateChangingMethod() public {
+  someStateVariable %= block.number;
+  
+  // `emit` is new for v0.4.21,
+  MyEvent(msg.sender, someStateVariable, 'we did this!');
+  
+  // `emit` is new for v0.4.21, suggest using it
+  emit MyEvent(...);
+}
+
+```
+Note: State-changing transactions are async,
+use events to feedback state to UI.
+
+]
 ---
 
-# Interfaces
+# Interfaces & External calls
 
+.left-column.width-50[
 ```solidity
 interface myInterface {
   function myMethod() public returns (uint);
 }
 ```
 
-Useful to help separate concerns between different files,
+Interfaces are like header files in C,
+basically unimplemented methods.
+
+Interfaes are useful to help separate concerns between different files,
 as well as for interoperability and external calls.
 
----
+Fun fact: ERC20 is just an interface!
+]
 
-# External calls
-
+.right-column.width-50[
 ```solidity
 contract A {
   myInterface public externAddr;
 
   function A(address _externAddr) public {
-    // The given address should have the specified interface for calling
-    externAddr = myInterface(_externAddr); // Cast to the given interface
+    // The given address should have the
+    // specified interface for calling
+    externAddr = myInterface(_externAddr);
+    // _externAddr is casted to the given interface
   }
 
   function callExtern() public returns (uint) {
-    return externAddr.myMethod(); // We can make an external call this way
+    // We can make an external call this way
+    return externAddr.myMethod();
   }
 }
 
-// We can also use this to specify what methods our contracts must implement
+// We can also use this to specify what
+// methods our contracts must implement
 contract B is myInterface {
   function myMethod() public returns (uint) {
     return msg.value;
   }
 }
 ```
+]
+
+---
+
+# ERC 20 Standard
+
+* Arguably Ethereum's best known innovation
+* Most exchanges and clients support
+* Other standards are being developed (e.g. ERC 721)
+
+```solidity
+// ----------------------------------------------------------------------------
+// ERC Token Standard #20 Interface
+// https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
+// ----------------------------------------------------------------------------
+
+contract ERC20Interface {
+  // "Basic" methods, allows transfer of coins
+  function totalSupply() public constant returns (uint);
+  function balanceOf(address tokenOwner) public constant returns (uint balance);
+  function transfer(address to, uint tokens) public returns (bool success);
+  
+  // "Standard" methods, e.g. approval workflow
+  function allowance(address tokenOwner, address spender) public constant returns (uint remaining);
+  function approve(address spender, uint tokens) public returns (bool success);
+  function transferFrom(address from, address to, uint tokens) public returns (bool success);
+
+  // UI Events, so UI Can update when txns are mined
+  event Transfer(address indexed from, address indexed to, uint tokens);
+  event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
+}
+```
+
+We're going to be using this today!

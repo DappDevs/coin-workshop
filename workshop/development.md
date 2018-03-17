@@ -2,8 +2,6 @@
 
 ???
 
-Coffee Break...
-
 Don't show this slide until ready...
 
 Who's ready to Shill some coins???
