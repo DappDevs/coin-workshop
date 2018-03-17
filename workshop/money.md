@@ -144,7 +144,7 @@ for transactions fees.
 
 ---
 
-# Ethereum *prints* Money
+# Ethereum is *programable* Money
 
 .left-column.width-50[
 
