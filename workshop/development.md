@@ -1,19 +1,3 @@
-
-# Let's Hack!
-* Initialize a client node
-* Get Ether from the faucet
-* Create, build, and deploy a "smart-wallet" smart contract
-* Participate in an "ICO" on the testnet
-* Use tokens to bid on an auction and win a prize!
-
-???
-
-Enough talk, let's hack!
-
-Here's what we're going to do
-
----
-
 # Client node
 * Download MetaMask extension for Chrome (or the Brave browser)
 * Create a new encrypted DEN with your password
@@ -28,42 +12,62 @@ Here's what we're going to do
 * Create a public social media post with your MetaMask address
 * Share the URL and ask for 18.75 Ethers
 
----
-
-# Where do I put it?
-* [Reference Wallet](./contracts/Wallet.sol)
-* Not necessary, but encouraged
-    * You can participate in the ICO via your client directly
-* Write it in Solidity via Remix at [remix.ethereum.org](http://remix.ethereum.org/)
-* Bonus points: Write it in Viper at [viper.tools](https://viper.tools/) instead!
-    * **NOTE**: Will have to copy bytecode to Remix
+*NOTE*: If you don't have social media, we can supply you *some* Rinkeby ETH
 
 ---
 
-# I Made This, Now What?
-* Deploy via Remix through MetaMask
-    * Specify "Injected Web3 Provider"
-* Deploy raw bytecode via Remix or Mist
+# Play with Remix
+
+* Go to [remix.ethereum.org](https://remix.ethereum.org)
 
 ---
 
-# What are these ICOs everyone is talking about?
-* "Whitelist" (pre-register) with the [ICO contract](./contracts/ICO.sol)
-    * I will give you the Address
-* I will start the ICO once everyone has whitelisted their address
-* Buy Tokens with your Rinkeby Eth
-    * ICO will last for 5 mins, or until everyone has 100 tokens
+# Let's shill some coins
+
+Develop an ICO smart contract you can share with others that earns you the most ShillTokens
+
+Rules:
+* There are no rules, winner takes all!
+* Yes, you can talk or strategize with others
+* Yes, you can exploit the smart contracts
+
+Suggestions:
+* Be transparent (transparency ==> trust ==> use)
+* Be nice (see above)
+* Market your ICO! (No one said you can't)
 
 ---
 
-# Beware the FOMO!!!
-* Auction is secret
-* Rules will hold and refund tokens arbitrarily
-* Everyone has equally good odds of winning auction
-    * Probably...
-    * Don't send all your tokens at once!
-* The auction will last 10 minutes
-    * ...or until someone figures out the winning strategy
-* The prize is really, really awesome...
-* [Source code](./contracts/SecretAuction.sol) (Parameters are [randomized](./contracts/deploy.py))
-* **DO IT NOW!!!!!**
+# Ready to Rumble!
+* Download the 'contracts/SampleICO.sol' contract from [github.com/DappDevs/coin-workshop](https://github.com/DappDevs/coin-workshop/blob/master/contracts/SampleICO.sol)
+* Upload it to remix
+* Make sure to throughly test your modifications
+* Make sure it works with the ICO interface, and with the ERC20 interface
+    * Or not... no one says you have to!
+
+You have 30 mins, then we will deploy as a group... GO!
+
+---
+
+# Deploy
+* Make sure to deploy to Rinkeby
+* Make sure you do `RegisterICO(token_address)` in your constructor
+    * This is the only way we can tell everyone the contracts
+* Make sure to fund your ICOs with both Tokens and Ether
+    * Otherwise people can't interact with it
+* You are allowed to talk
+    * But don't yell... or be mean
+
+You will have 20 mins to get as many Tokens as possible... GO!
+
+---
+
+# Winner winner chicken dinner!
+* Navigate to "rinkeby.etherscan.io/token/<token_address>"
+* Whoever has the most tokens wins!
+
+# Debrief
+* What issues did people have
+* Any bugs, locked tokens, locked funds?
+* What worked technically? Socially?
+* Did anyone hack another ICO? The token contract?
